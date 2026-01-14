@@ -24,6 +24,8 @@ const App = () => {
     localStorage.getItem("token") ? localStorage.getItem("token") : ""
   );
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("token", token);
   }, [token]);
@@ -35,11 +37,13 @@ const App = () => {
         <Login setToken={setToken} />
       ) : (
         <>
-          <Navbar setToken={setToken} />
+          <Navbar setToken={setToken} setSidebarOpen={setSidebarOpen} />
           <hr />
+
           <div className="flex w-full">
-            <Sidebar />
-            <div className="w-[70%] max-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
+            <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+
+            <div className="flex-1 p-4 sm:p-6 text-gray-600 text-base">
               <ErrorBoundary>
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
