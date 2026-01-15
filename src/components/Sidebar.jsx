@@ -5,11 +5,6 @@ import {
   ShoppingCart,
   PlusSquare,
   List,
-  Users,
-  Mail,
-  FileText,
-  Send,
-  Settings,
   X,
 } from "lucide-react";
 
@@ -79,61 +74,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         >
           <List size={20} />
           <span className="hidden sm:block">Products</span>
-        </NavLink>
-
-        <NavLink
-          to="/customers"
-          onClick={() => setSidebarOpen(false)}
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? linkActive : linkInactive}`
-          }
-        >
-          <Users size={20} />
-          <span className="hidden sm:block">Customers</span>
-        </NavLink>
-
-        <NavLink
-          to="/messages"
-          onClick={() => setSidebarOpen(false)}
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? linkActive : linkInactive}`
-          }
-        >
-          <Mail size={20} />
-          <span className="hidden sm:block">Messages</span>
-        </NavLink>
-
-        <NavLink
-          to="/quotes"
-          onClick={() => setSidebarOpen(false)}
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? linkActive : linkInactive}`
-          }
-        >
-          <FileText size={20} />
-          <span className="hidden sm:block">Quotes</span>
-        </NavLink>
-
-        <NavLink
-          to="/newsletter"
-          onClick={() => setSidebarOpen(false)}
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? linkActive : linkInactive}`
-          }
-        >
-          <Send size={20} />
-          <span className="hidden sm:block">Newsletter</span>
-        </NavLink>
-
-        <NavLink
-          to="/settings"
-          onClick={() => setSidebarOpen(false)}
-          className={({ isActive }) =>
-            `${linkBase} ${isActive ? linkActive : linkInactive}`
-          }
-        >
-          <Settings size={20} />
-          <span className="hidden sm:block">Settings</span>
         </NavLink>
       </div>
     </div>
