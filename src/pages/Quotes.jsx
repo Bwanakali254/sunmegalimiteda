@@ -1,46 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { backendUrl } from "../App";
 
-const Quotes = () => {
+const Quotes = ({ token }) => {
+  const [quotes, setQuotes] = useState([]);
+
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      const res = await axios.get(backendUrl + "/api/quote/list");
+      if (res.data.success) setQuotes(res.data.quotes);
+    };
+    fetchQuotes();
+  }, []);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-semibold">Quotes</h2>
-        <p className="text-gray-500 text-sm">
-          Customer requests for solar system quotations
-        </p>
-      </div>
+      <h2 className="text-2xl font-semibold">Quotes</h2>
 
       <div className="bg-white rounded-xl shadow-sm">
-        <div className="hidden md:grid grid-cols-6 px-5 py-3 text-sm text-gray-500 border-b">
+        <div className="grid grid-cols-6 px-5 py-3 text-sm text-gray-500 border-b">
           <span>Name</span>
           <span>Email</span>
           <span>Phone</span>
-          <span>System Type</span>
+          <span>System</span>
           <span>Capacity</span>
           <span>Status</span>
         </div>
 
-        {["New", "Reviewed", "Sent", "Approved"].map((status, i) => (
-          <div
-            key={i}
-            className="grid grid-cols-1 md:grid-cols-6 gap-3 px-5 py-4 border-b text-sm"
-          >
-            <span>Jane Doe</span>
-            <span>jane@email.com</span>
-            <span>+254711111111</span>
-            <span>Home Solar</span>
-            <span>5kW</span>
-            <span
-              className={`font-medium ${
-                status === "Approved"
-                  ? "text-green-600"
-                  : status === "New"
-                  ? "text-blue-600"
-                  : "text-yellow-600"
-              }`}
-            >
-              {status}
-            </span>
+        {quotes.map((q) => (
+          <div key={q._id} className="grid grid-cols-6 px-5 py-4 border-b text-sm">
+            <span>{q.name}</span>
+            <span>{q.email}</span>
+            <span>{q.phone}</span>
+            <span>{q.systemType}</span>
+            <span>{q.capacity}</span>
+            <span>{q.status}</span>
           </div>
         ))}
       </div>

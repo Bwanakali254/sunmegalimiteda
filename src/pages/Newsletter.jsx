@@ -1,30 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { backendUrl } from "../App";
 
 const Newsletter = () => {
+  const [subs, setSubs] = useState([]);
+
+  useEffect(() => {
+    const fetchSubs = async () => {
+      const res = await axios.get(backendUrl + "/api/newsletter/list");
+      if (res.data.success) setSubs(res.data.subscribers);
+    };
+    fetchSubs();
+  }, []);
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-semibold">Newsletter</h2>
-        <p className="text-gray-500 text-sm">
-          Subscribers to Sun Mega Limited updates
-        </p>
-      </div>
+      <h2 className="text-2xl font-semibold">Newsletter</h2>
 
       <div className="bg-white rounded-xl shadow-sm">
-        <div className="hidden md:grid grid-cols-3 px-5 py-3 text-sm text-gray-500 border-b">
+        <div className="grid grid-cols-3 px-5 py-3 text-sm text-gray-500 border-b">
           <span>Email</span>
-          <span>Subscribed On</span>
+          <span>Date</span>
           <span>Status</span>
         </div>
 
-        {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="grid grid-cols-1 md:grid-cols-3 gap-3 px-5 py-4 border-b text-sm"
-          >
-            <span>user{i}@mail.com</span>
-            <span>14/01/2026</span>
-            <span className="text-green-600 font-medium">Active</span>
+        {subs.map((s) => (
+          <div key={s._id} className="grid grid-cols-3 px-5 py-4 border-b text-sm">
+            <span>{s.email}</span>
+            <span>{new Date(s.date).toLocaleDateString()}</span>
+            <span>{s.active ? "Active" : "Inactive"}</span>
           </div>
         ))}
       </div>
