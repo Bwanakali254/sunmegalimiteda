@@ -60,7 +60,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </NavLink>
 
         <NavLink
-          to="/add"
+          to="/products/add"
           onClick={() => setSidebarOpen(false)}
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
@@ -71,14 +71,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         </NavLink>
 
         <NavLink
-          to="/list"
+          to="/products"
           onClick={() => setSidebarOpen(false)}
           className={({ isActive }) =>
             `${linkBase} ${isActive ? linkActive : linkInactive}`
           }
         >
           <List size={20} />
-          <span className="hidden sm:block">Product List</span>
+          <span className="hidden sm:block">Products</span>
         </NavLink>
 
         <NavLink
