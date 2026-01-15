@@ -18,9 +18,11 @@ const AddProduct = ({ token }) => {
   const [brand, setBrand] = useState("");
   const [quantity, setQuantity] = useState("");
   const [bestseller, setBestseller] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("name", Name);
@@ -54,13 +56,19 @@ const AddProduct = ({ token }) => {
         setPrice("");
         setBrand("");
         setQuantity("");
+        setBestseller(false);
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  const inputStyle =
+    "w-full mt-1 rounded-lg border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500";
 
   return (
     <div className="max-w-6xl mx-auto space-y-8">
@@ -111,7 +119,7 @@ const AddProduct = ({ token }) => {
               <input
                 value={Name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
                 placeholder="High Voltage Battery"
                 required
               />
@@ -122,7 +130,7 @@ const AddProduct = ({ token }) => {
               <textarea
                 value={Description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2 min-h-[120px]"
+                className={`${inputStyle} min-h-[120px]`}
                 placeholder="Write product details..."
                 required
               />
@@ -133,7 +141,7 @@ const AddProduct = ({ token }) => {
               <input
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
                 placeholder="Sun Mega"
                 required
               />
@@ -147,7 +155,7 @@ const AddProduct = ({ token }) => {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
               >
                 <option>Batteries</option>
                 <option>Controllers</option>
@@ -163,7 +171,7 @@ const AddProduct = ({ token }) => {
               <select
                 value={subCategory}
                 onChange={(e) => setSubCategory(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
               >
                 <option value="high-voltage-battery">High Voltage Battery</option>
                 <option value="stack-battery-pack">Stack Battery Pack</option>
@@ -188,7 +196,7 @@ const AddProduct = ({ token }) => {
                 type="number"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
                 placeholder="100"
               />
             </div>
@@ -199,7 +207,7 @@ const AddProduct = ({ token }) => {
                 type="number"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                className="w-full mt-1 rounded-lg border px-4 py-2"
+                className={inputStyle}
                 placeholder="10"
               />
             </div>
@@ -218,9 +226,14 @@ const AddProduct = ({ token }) => {
         <div>
           <button
             type="submit"
-            className="px-8 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition font-medium"
+            disabled={loading}
+            className={`px-8 py-3 rounded-xl font-medium transition ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700 text-white"
+            }`}
           >
-            Add Product
+            {loading ? "Adding..." : "Add Product"}
           </button>
         </div>
       </form>
