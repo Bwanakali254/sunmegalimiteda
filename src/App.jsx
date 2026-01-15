@@ -46,7 +46,7 @@ const App = () => {
             <div className="flex-1 p-4 sm:p-6 text-gray-600 text-base">
               <ErrorBoundary>
                 <Routes>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/" element={<Dashboard token={token} />} />
 
                   <Route
                     path="/products/add"
