@@ -47,9 +47,7 @@ const Orders = ({ token }) => {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-semibold">Orders</h2>
-        <p className="text-gray-500 text-sm">
-          Manage customer solar orders
-        </p>
+        <p className="text-gray-500 text-sm">Manage customer solar orders</p>
       </div>
 
       <div className="space-y-4">
@@ -66,14 +64,33 @@ const Orders = ({ token }) => {
               <p className="text-sm text-gray-500">{order.address.phone}</p>
             </div>
 
-            {/* Items */}
+            {/* Items with Images */}
             <div>
-              <p className="font-medium mb-1">Items</p>
-              {order.items.map((item, i) => (
-                <p key={i} className="text-sm text-gray-600">
-                  {item.name} × {item.quantity}
-                </p>
-              ))}
+              <p className="font-medium mb-2">Items</p>
+              <div className="space-y-2">
+                {order.items.map((item, i) => {
+                  const img =
+                    item.image?.[0] ||
+                    item.image ||
+                    "https://via.placeholder.com/40";
+
+                  return (
+                    <div key={i} className="flex items-center gap-3">
+                      <img
+                        src={img}
+                        alt={item.name}
+                        className="w-10 h-10 object-cover rounded-md border"
+                      />
+                      <div>
+                        <p className="text-sm font-medium">{item.name}</p>
+                        <p className="text-xs text-gray-500">
+                          Qty: {item.quantity}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Payment */}
