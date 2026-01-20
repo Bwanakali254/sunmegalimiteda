@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import EditProduct from "./pages/EditProduct";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 export const currency = "KES";
@@ -51,6 +52,10 @@ const App = () => {
                   <Route
                     path="/products"
                     element={<Products token={token} />}
+                  />
+                  <Route
+                    path="/products/edit/:id"
+                    element={<EditProduct token={token} />}
                   />
                   <Route
                     path="/orders"
