@@ -90,7 +90,7 @@ const App = () => {
                     path="/orders"
                     element={<Orders token={token} />}
                   />
-                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/settings" element={<Settings token={token} />} />
                 </Routes>
               </ErrorBoundary>
             </div>
